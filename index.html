@@ -3,24 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JOJO STAND DRAFT — Part 3</title>
+  <title>JoJo Draft — Part 3</title>
   <style>
     :root {
-      --bg: #09070d;
-      --panel: rgba(20, 14, 32, 0.92);
-      --panel-2: rgba(30, 20, 46, 0.95);
-      --line: rgba(185, 133, 255, 0.28);
-      --text: #f8f4ff;
-      --muted: #bdb1d6;
-      --hot: #ff4fd8;
-      --purple: #9e6cff;
-      --blue: #59b6ff;
-      --green: #6dffb0;
-      --yellow: #ffd55e;
-      --red: #ff6c7f;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-      --glow: 0 0 18px rgba(158,108,255,.35);
-      --radius: 22px;
+      --bg: #000000;
+      --panel: #0a0a0a;
+      --panel-2: #111111;
+      --line: #1d1d1d;
+      --line-2: #2a2a2a;
+      --text: #f5f5f5;
+      --muted: #9a9a9a;
+      --soft: #141414;
+      --accent: #ffffff;
+      --radius: 14px;
     }
 
     * { box-sizing: border-box; }
@@ -28,106 +23,60 @@
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
       color: var(--text);
-      background:
-        radial-gradient(circle at 15% 20%, rgba(255,79,216,.18), transparent 30%),
-        radial-gradient(circle at 85% 15%, rgba(89,182,255,.16), transparent 28%),
-        radial-gradient(circle at 50% 80%, rgba(158,108,255,.16), transparent 34%),
-        linear-gradient(180deg, #0a0810 0%, #08070d 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 32px 32px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.9));
     }
 
     .app {
-      max-width: 1450px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 22px;
+      padding: 18px;
     }
 
-    .hero {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(27,17,41,.94), rgba(14,10,24,.96));
-      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.05);
-      padding: 28px;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "PART 3";
-      position: absolute;
-      right: 20px;
-      top: 8px;
-      font-size: clamp(3rem, 12vw, 9rem);
-      font-weight: 900;
-      color: rgba(255,255,255,.04);
-      letter-spacing: .08em;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    .title-row {
+    .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      position: relative;
-      z-index: 1;
+      gap: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 16px;
     }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 4rem);
-      letter-spacing: .06em;
-      line-height: .92;
+    .title {
+      font-size: 1.4rem;
       font-weight: 900;
+      letter-spacing: .04em;
     }
 
-    .subtitle {
-      margin-top: 10px;
+    .sub {
       color: var(--muted);
-      font-size: 1rem;
-      max-width: 780px;
+      font-size: .88rem;
+      margin-top: 4px;
     }
 
     .controls {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
     button {
-      appearance: none;
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid var(--line-2);
+      background: #111111;
       color: var(--text);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      padding: 12px 16px;
-      border-radius: 16px;
-      cursor: pointer;
+      padding: 10px 14px;
+      border-radius: 12px;
       font-weight: 800;
-      letter-spacing: .02em;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease, opacity .18s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease, opacity .15s ease;
     }
 
     button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.28);
-      background: linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.06));
+      background: #181818;
+      border-color: #343434;
     }
 
     button:disabled {
@@ -135,1233 +84,811 @@
       cursor: not-allowed;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, rgba(255,79,216,.30), rgba(158,108,255,.28));
-      border-color: rgba(255,79,216,.4);
-      box-shadow: var(--glow);
-    }
-
-    .btn-danger {
-      background: linear-gradient(135deg, rgba(255,108,127,.22), rgba(158,108,255,.20));
-      border-color: rgba(255,108,127,.34);
-    }
-
-    .grid {
+    .layout {
       display: grid;
-      grid-template-columns: 1.15fr 1.15fr .9fr;
-      gap: 20px;
-      margin-top: 22px;
-      align-items: start;
+      grid-template-columns: 1.1fr 1.1fr .95fr;
+      gap: 14px;
+      margin-bottom: 14px;
     }
 
     .panel {
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--panel), rgba(13,10,21,.95));
-      box-shadow: var(--shadow);
+      background: var(--panel);
+      border-radius: 16px;
       overflow: hidden;
     }
 
-    .panel-header {
+    .panel-head {
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 18px 18px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+      gap: 10px;
     }
 
     .panel-title {
-      font-size: 1.08rem;
+      font-size: .95rem;
       font-weight: 900;
       letter-spacing: .04em;
     }
 
-    .tiny {
+    .small {
       color: var(--muted);
-      font-size: .85rem;
+      font-size: .78rem;
     }
 
     .slots {
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .slot {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: var(--soft);
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .slot.active {
+      border-color: #3a3a3a;
+      background: #121212;
+    }
+
+    .slot.done {
+      border-color: #2e2e2e;
+    }
+
+    .slot-name {
+      font-size: .74rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 5px;
+    }
+
+    .slot-value {
+      font-size: .95rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+
+    .badge {
+      font-size: .72rem;
+      color: var(--muted);
+      border: 1px solid var(--line-2);
+      border-radius: 999px;
+      padding: 7px 9px;
+      flex-shrink: 0;
+    }
+
+    .status {
       padding: 14px;
       display: grid;
       gap: 12px;
     }
 
-    .slot {
-      border: 1px solid rgba(255,255,255,.08);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border-radius: 18px;
-      padding: 12px 14px;
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      position: relative;
+    .status-box {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .big {
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin-top: 6px;
+    }
+
+    .part-strip {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 12px;
+      padding: 10px;
       overflow: hidden;
     }
 
-    .slot.active {
-      border-color: rgba(255,213,94,.48);
-      box-shadow: 0 0 0 1px rgba(255,213,94,.18), 0 0 24px rgba(255,213,94,.10);
-    }
-
-    .slot.complete::after {
-      content: "LOCKED";
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      font-size: .68rem;
-      font-weight: 900;
-      color: rgba(109,255,176,.9);
-      letter-spacing: .08em;
-    }
-
-    .slot-left {
-      min-width: 0;
-    }
-
-    .slot-name {
-      font-size: .78rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .09em;
-      margin-bottom: 6px;
-    }
-
-    .slot-value {
-      font-weight: 900;
-      font-size: .98rem;
-      letter-spacing: .02em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 240px;
-    }
-
-    .badge {
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 999px;
-      padding: 8px 10px;
-      font-size: .75rem;
-      font-weight: 800;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-
-    .flow {
-      padding: 16px;
-      display: grid;
-      gap: 16px;
-    }
-
-    .status-card {
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 18px;
-      padding: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-    }
-
-    .status-card strong {
-      font-size: 1.04rem;
-    }
-
-    .current-category {
-      font-size: clamp(1.3rem, 2.5vw, 2rem);
-      font-weight: 900;
-      letter-spacing: .06em;
-      margin-top: 8px;
-      color: var(--yellow);
-      text-shadow: 0 0 18px rgba(255,213,94,.18);
-    }
-
-    .turn-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border-radius: 999px;
-      padding: 10px 12px;
-      background: rgba(255,255,255,.06);
-      margin-top: 12px;
-      font-weight: 800;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 14px rgba(109,255,176,.55);
-    }
-
-    .spinner-shell {
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      padding: 18px;
-    }
-
-    .spinner-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--muted);
-      font-size: .86rem;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 12px;
-    }
-
-    .spinner-window {
-      position: relative;
-      overflow: hidden;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.08);
-      height: 88px;
-      background: linear-gradient(180deg, rgba(14,10,24,.92), rgba(28,20,40,.98));
-      display: flex;
-      align-items: center;
-    }
-
-    .spinner-window::before,
-    .spinner-window::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 90px;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .spinner-window::before {
-      left: 0;
-      background: linear-gradient(90deg, rgba(10,8,16,1), rgba(10,8,16,0));
-    }
-
-    .spinner-window::after {
-      right: 0;
-      background: linear-gradient(270deg, rgba(10,8,16,1), rgba(10,8,16,0));
-    }
-
-    .spinner-track {
-      display: flex;
-      gap: 16px;
-      padding: 0 18px;
-      will-change: transform;
-      transition: transform 2.2s cubic-bezier(.15,.92,.08,1);
-      transform: translateX(0);
-    }
-
-    .spinner-item {
-      min-width: 180px;
-      height: 56px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      font-weight: 900;
-      letter-spacing: .06em;
-      color: #f4eaff;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    }
-
-    .spinner-pointer {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .spinner-pointer::after {
-      content: "";
-      width: 190px;
-      height: 64px;
-      border: 2px solid rgba(255,213,94,.5);
-      border-radius: 16px;
-      box-shadow: 0 0 28px rgba(255,213,94,.12);
-    }
-
-    .options {
-      padding: 16px;
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .option-card {
-      position: relative;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 22px;
-      padding: 18px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)),
-        linear-gradient(135deg, rgba(158,108,255,.10), rgba(255,79,216,.06));
-      min-height: 188px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 14px;
-      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-      overflow: hidden;
-    }
-
-    .option-card::before {
-      content: "";
-      position: absolute;
-      inset: -40% auto auto -20%;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,.10), transparent 60%);
-      pointer-events: none;
-    }
-
-    .option-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,.18);
-      box-shadow: var(--glow);
-    }
-
-    .option-card h3 {
-      margin: 0;
-      font-size: 1.3rem;
-      line-height: 1.02;
-      letter-spacing: .03em;
-    }
-
-    .option-sub {
-      color: var(--muted);
-      font-size: .92rem;
-      font-weight: 700;
-    }
-
-    .option-desc {
-      color: #dfd6f1;
-      font-size: .93rem;
-      line-height: 1.45;
-      max-width: 96%;
-    }
-
-    .option-tags {
+    .part-track {
       display: flex;
       gap: 8px;
-      flex-wrap: wrap;
+      transition: transform 1.7s cubic-bezier(.17,.84,.18,1);
+      will-change: transform;
     }
 
-    .tag {
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      font-size: .72rem;
-      font-weight: 900;
-      letter-spacing: .06em;
-      color: #efe9ff;
-      background: rgba(255,255,255,.06);
-      text-transform: uppercase;
-    }
-
-    .pick-btn {
-      width: 100%;
-      justify-content: center;
-      display: inline-flex;
-    }
-
-    .reveal {
-      padding: 16px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .reveal-card {
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 18px;
-      padding: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
-    }
-
-    .reveal-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .reveal-name {
-      font-size: 1.05rem;
-      font-weight: 900;
-    }
-
-    .score {
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: var(--yellow);
-    }
-
-    .formula {
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    .winner-banner {
-      display: none;
-      margin-top: 12px;
-      border-radius: 18px;
-      padding: 16px;
-      background: linear-gradient(135deg, rgba(109,255,176,.18), rgba(89,182,255,.12));
-      border: 1px solid rgba(109,255,176,.26);
-      font-weight: 900;
+    .part-pill {
+      min-width: 108px;
+      text-align: center;
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      padding: 12px 10px;
+      background: #121212;
+      font-weight: 800;
+      font-size: .85rem;
       letter-spacing: .04em;
     }
 
-    .winner-banner.show {
-      display: block;
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      padding: 12px;
     }
 
-    .log {
-      padding: 16px;
-      max-height: 340px;
-      overflow: auto;
+    .category-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #0f0f0f;
+      min-height: 68px;
+    }
+
+    .category-btn strong {
+      display: block;
+      font-size: .9rem;
+      margin-bottom: 5px;
+    }
+
+    .category-btn span {
+      color: var(--muted);
+      font-size: .76rem;
+    }
+
+    .category-btn.selected {
+      border-color: #3a3a3a;
+      background: #151515;
+    }
+
+    .category-btn.filled {
+      opacity: .55;
+    }
+
+    .bottom {
       display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap: 14px;
+    }
+
+    .choices {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .choices-head {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 10px;
     }
 
-    .log-item {
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 16px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,.04);
-      color: #e8def9;
+    .choices-grid {
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .choice {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .choice-name {
+      font-size: 1.02rem;
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    .choice-user {
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .choice-desc {
+      color: #cfcfcf;
+      font-size: .86rem;
       line-height: 1.42;
-      font-size: .94rem;
     }
 
-    .empty-state {
-      color: var(--muted);
-      font-size: .95rem;
-      border: 1px dashed rgba(255,255,255,.12);
-      border-radius: 18px;
-      padding: 18px;
+    .player-choose {
+      display: grid;
+      gap: 8px;
+    }
+
+    .player-pick-btn {
+      width: 100%;
+      background: #121212;
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      padding: 10px 12px;
       text-align: center;
+      font-weight: 900;
     }
 
-    .footer-note {
-      margin-top: 18px;
+    .player-pick-btn:hover:not(:disabled) {
+      background: #181818;
+    }
+
+    .score-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .score-body {
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .score-box {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .score-label {
       color: var(--muted);
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+
+    .score-value {
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .log {
+      display: grid;
+      gap: 8px;
+      max-height: 280px;
+      overflow: auto;
+    }
+
+    .log-item {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 10px;
+      padding: 10px 11px;
+      color: #d6d6d6;
+      font-size: .84rem;
+      line-height: 1.4;
+    }
+
+    .empty {
+      padding: 18px;
+      color: var(--muted);
+      text-align: center;
+      border: 1px dashed var(--line-2);
+      border-radius: 12px;
+      margin: 12px;
       font-size: .9rem;
-      line-height: 1.5;
     }
 
-    @media (max-width: 1180px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 1080px) {
+      .layout, .bottom { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 760px) {
-      .title-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .controls {
-        width: 100%;
-        justify-content: flex-start;
-      }
-      .options {
-        grid-template-columns: 1fr;
-      }
-      .slot-value {
-        max-width: 180px;
-      }
+    @media (max-width: 720px) {
+      .category-grid, .choices-grid { grid-template-columns: 1fr; }
+      .topbar { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <section class="hero">
-      <div class="title-row">
-        <div>
-          <h1>JOJO STAND DRAFT</h1>
-          <div class="subtitle">
-            Part 3 prototype. Hidden-information draft inspired by competitive pick’em structure, rebuilt around category battles, a dramatic bottom spinner, one reroll per player, and separate <strong>Stand</strong> picks for combat categories plus <strong>User</strong> picks for IQ and User.
-          </div>
-        </div>
-        <div class="controls">
-          <button class="btn-primary" id="startBtn">Start Draft</button>
-          <button id="nextRoundBtn" disabled>Spin Next Part</button>
-          <button class="btn-danger" id="resetBtn">Reset</button>
-        </div>
+    <div class="topbar">
+      <div>
+        <div class="title">JOJO DRAFT — PART 3</div>
+        <div class="sub">Minimal black prototype. Choose any category in any order. Four options only. Final result is total score after all categories are filled.</div>
       </div>
-    </section>
+      <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="spinBtn" disabled>Spin Part</button>
+        <button id="rerollBtn" disabled>Reroll</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </div>
 
-    <section class="grid">
+    <div class="layout">
       <div class="panel">
-        <div class="panel-header">
+        <div class="panel-head">
           <div>
             <div class="panel-title">Player 1</div>
-            <div class="tiny">One reroll available for the whole game.</div>
+            <div class="small">1 reroll for the entire game</div>
           </div>
-          <div class="badge" id="p1Reroll">Reroll: Ready</div>
+          <div class="badge" id="p1Reroll">Ready</div>
         </div>
         <div class="slots" id="player1Slots"></div>
       </div>
 
       <div class="panel">
-        <div class="panel-header">
+        <div class="panel-head">
           <div>
             <div class="panel-title">Player 2</div>
-            <div class="tiny">Turn order flips after each category.</div>
+            <div class="small">Stand picks for combat slots, user picks for IQ and User</div>
           </div>
-          <div class="badge" id="p2Reroll">Reroll: Ready</div>
+          <div class="badge" id="p2Reroll">Ready</div>
         </div>
         <div class="slots" id="player2Slots"></div>
       </div>
 
       <div class="panel">
-        <div class="panel-header">
+        <div class="panel-head">
           <div>
-            <div class="panel-title">Draft Flow</div>
-            <div class="tiny">Bottom randomizer locks the current Part.</div>
+            <div class="panel-title">Round</div>
+            <div class="small">Category order is fully open</div>
           </div>
         </div>
-        <div class="flow">
-          <div class="status-card">
-            <div class="tiny">Current category</div>
-            <div class="current-category" id="currentCategory">WAITING</div>
-            <div class="turn-pill"><span class="dot"></span><span id="turnText">Press Start Draft</span></div>
+        <div class="status">
+          <div class="status-box">
+            <div class="small">Current category</div>
+            <div class="big" id="currentCategory">None</div>
           </div>
-
-          <div class="spinner-shell">
-            <div class="spinner-label">
-              <span>Part spinner</span>
-              <span id="partStatus">No part locked</span>
-            </div>
-            <div class="spinner-window">
-              <div class="spinner-track" id="spinnerTrack"></div>
-              <div class="spinner-pointer"></div>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
-              <button id="rerollBtn" disabled>Use Reroll</button>
-              <button id="lockInfoBtn" disabled>Lock Current Part</button>
-            </div>
+          <div class="status-box">
+            <div class="small">Current turn</div>
+            <div class="big" id="turnText">Press Start</div>
           </div>
-
-          <div class="status-card" id="roundInfo">
-            <strong>Round not started.</strong>
-            <div class="footer-note">For now this prototype only contains <strong>Part 3</strong>. The spinner still behaves like a dramatic bottom selector so Parts 4 and 5 can be dropped in later without rewriting the draft flow.</div>
+          <div class="status-box">
+            <div class="small">Current part</div>
+            <div class="big" id="partText">Not spun</div>
+          </div>
+          <div class="part-strip">
+            <div class="part-track" id="partTrack"></div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="grid" style="grid-template-columns: 1.6fr .95fr 1fr;">
-      <div class="panel">
-        <div class="panel-header">
+    <div class="panel" style="margin-bottom:14px;">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Choose Any Category</div>
+          <div class="small">Once a category is completed by both players, it is locked.</div>
+        </div>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </div>
+
+    <div class="bottom">
+      <div class="choices">
+        <div class="choices-head">
           <div>
-            <div class="panel-title">Available Choices</div>
-            <div class="tiny">No visible stats during drafting. Just names, users, descriptions, and role hints.</div>
+            <div class="panel-title">Choices</div>
+            <div class="small">Exactly four options appear for the current category.</div>
           </div>
         </div>
-        <div class="options" id="optionsArea">
-          <div class="empty-state" style="grid-column: 1 / -1;">Start the draft to spin the current Part and generate choices.</div>
+        <div class="choices-grid" id="choicesGrid">
+          <div class="empty" style="grid-column:1 / -1;">Select a category, then spin the part to generate four choices.</div>
         </div>
       </div>
 
-      <div class="panel">
-        <div class="panel-header">
+      <div class="score-panel">
+        <div class="panel-head">
           <div>
-            <div class="panel-title">Category Reveal</div>
-            <div class="tiny">Stats only appear after both players lock the category.</div>
+            <div class="panel-title">Match Score</div>
+            <div class="small">Only the final total matters after all categories are done.</div>
           </div>
         </div>
-        <div class="reveal" id="revealArea">
-          <div class="empty-state">After both players pick for the current category, the hidden values and winner will appear here.</div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <div class="panel-title">Match Log</div>
-            <div class="tiny">Draft actions, rerolls, and category winners.</div>
+        <div class="score-body">
+          <div class="score-box">
+            <div class="score-label">Player 1 total</div>
+            <div class="score-value" id="p1Total">0</div>
+          </div>
+          <div class="score-box">
+            <div class="score-label">Player 2 total</div>
+            <div class="score-value" id="p2Total">0</div>
+          </div>
+          <div class="score-box">
+            <div class="score-label">Status</div>
+            <div style="font-weight:800; line-height:1.45;" id="statusText">Waiting to start.</div>
+          </div>
+          <div class="log" id="logArea">
+            <div class="log-item">Draft log ready.</div>
           </div>
         </div>
-        <div class="log" id="logArea">
-          <div class="log-item">Draft log ready.</div>
-        </div>
       </div>
-    </section>
+    </div>
   </div>
 
   <script>
     const categories = ["Power", "Speed", "Durability", "Precision", "Range", "IQ", "User"];
 
     const standData = [
-      {
-        id: "star_platinum",
-        name: "Star Platinum",
-        user: "Jotaro Kujo",
-        description: "Extremely fast and precise close-range stand with time stop.",
-        multiplier: 1.4,
-        stats: { Power: 6, Speed: 5.5, Durability: 4.5, Precision: 6, Range: 2, IQ: 5, User: 5 }
-      },
-      {
-        id: "magicians_red",
-        name: "Magician's Red",
-        user: "Muhammad Avdol",
-        description: "Fire-based stand with ranged flame attacks.",
-        multiplier: 1.1,
-        stats: { Power: 5, Speed: 4.5, Durability: 4.5, Precision: 4, Range: 3, IQ: 4.5, User: 4 }
-      },
-      {
-        id: "hierophant_green",
-        name: "Hierophant Green",
-        user: "Noriaki Kakyoin",
-        description: "Long-range stand that can unravel and attack from distance.",
-        multiplier: 1.1,
-        stats: { Power: 4, Speed: 4.5, Durability: 4.5, Precision: 4, Range: 6, IQ: 4.5, User: 4.5 }
-      },
-      {
-        id: "silver_chariot",
-        name: "Silver Chariot",
-        user: "Jean Pierre Polnareff",
-        description: "Extremely fast swordsman that can remove armor for speed.",
-        multiplier: 1.1,
-        stats: { Power: 4.5, Speed: 5.5, Durability: 4, Precision: 5.5, Range: 2.5, IQ: 4, User: 4.5 }
-      },
-      {
-        id: "hermit_purple",
-        name: "Hermit Purple",
-        user: "Joseph Joestar",
-        description: "Vine-like stand used for tracking and spirit photography.",
-        multiplier: 1.0,
-        stats: { Power: 2.5, Speed: 3, Durability: 3.5, Precision: 2.5, Range: 3, IQ: 5, User: 5 }
-      },
-      {
-        id: "the_fool",
-        name: "The Fool",
-        user: "Iggy",
-        description: "Sand-based stand that can reshape itself freely.",
-        multiplier: 1.1,
-        stats: { Power: 5, Speed: 3.5, Durability: 3.5, Precision: 2.5, Range: 2.5, IQ: 3.5, User: 3.5 }
-      },
-      {
-        id: "the_world",
-        name: "The World",
-        user: "DIO",
-        description: "Close-range powerhouse that can stop time.",
-        multiplier: 1.4,
-        stats: { Power: 5.5, Speed: 5, Durability: 5.5, Precision: 5, Range: 2, IQ: 5, User: 4.5 }
-      },
-      {
-        id: "tower_of_gray",
-        name: "Tower of Gray",
-        user: "Gray Fly",
-        description: "Tiny insect stand with absurd speed and range.",
-        multiplier: 1.0,
-        stats: { Power: 2, Speed: 6, Durability: 3.5, Precision: 2, Range: 6, IQ: 2.5, User: 3 }
-      },
-      {
-        id: "dark_blue_moon",
-        name: "Dark Blue Moon",
-        user: "Impostor Captain Tennille",
-        description: "Aquatic combat stand built for underwater fighting.",
-        multiplier: 1.1,
-        stats: { Power: 4, Speed: 3.5, Durability: 4.5, Precision: 3.5, Range: 3.5, IQ: 3, User: 3 }
-      },
-      {
-        id: "strength",
-        name: "Strength",
-        user: "Forever",
-        description: "Ship-bound stand with huge physical presence.",
-        multiplier: 1.1,
-        stats: { Power: 4.5, Speed: 2.5, Durability: 6, Precision: 2, Range: 2.5, IQ: 2.5, User: 2 }
-      },
-      {
-        id: "ebony_devil",
-        name: "Ebony Devil",
-        user: "Devo the Cursed",
-        description: "Possessed doll that becomes deadly through hatred and injury.",
-        multiplier: 1.2,
-        stats: { Power: 2.5, Speed: 2.5, Durability: 4.5, Precision: 2.5, Range: 6, IQ: 2.5, User: 2.5 }
-      },
-      {
-        id: "yellow_temperance",
-        name: "Yellow Temperance",
-        user: "Rubber Soul",
-        description: "Body-coating stand that absorbs and protects.",
-        multiplier: 1.2,
-        stats: { Power: 2.5, Speed: 3.5, Durability: 6, Precision: 2, Range: 2, IQ: 2.5, User: 3 }
-      },
-      {
-        id: "hanged_man",
-        name: "Hanged Man",
-        user: "J. Geil",
-        description: "Reflection-traveling assassin with extreme speed.",
-        multiplier: 1.2,
-        stats: { Power: 3.5, Speed: 6, Durability: 4.5, Precision: 2.5, Range: 5.5, IQ: 3, User: 3.5 }
-      },
-      {
-        id: "emperor",
-        name: "Emperor",
-        user: "Hol Horse",
-        description: "Gun stand that curves bullets after firing.",
-        multiplier: 1.0,
-        stats: { Power: 4.5, Speed: 4.5, Durability: 3, Precision: 2.5, Range: 4.5, IQ: 4, User: 4.5 }
-      },
-      {
-        id: "empress",
-        name: "Empress",
-        user: "Nena",
-        description: "Parasitic flesh stand that grows on the target.",
-        multiplier: 1.1,
-        stats: { Power: 3.5, Speed: 2, Durability: 5.5, Precision: 2.5, Range: 6, IQ: 2.5, User: 2.5 }
-      },
-      {
-        id: "wheel_of_fortune",
-        name: "Wheel of Fortune",
-        user: "ZZ",
-        description: "Car stand built around brute force and pressure.",
-        multiplier: 1.0,
-        stats: { Power: 4.5, Speed: 2.5, Durability: 6, Precision: 2, Range: 2.5, IQ: 3, User: 2.5 }
-      },
-      {
-        id: "justice",
-        name: "Justice",
-        user: "Enya",
-        description: "Fog stand that controls injured bodies like puppets.",
-        multiplier: 1.2,
-        stats: { Power: 2.5, Speed: 2, Durability: 3, Precision: 2, Range: 6, IQ: 4.5, User: 4 }
-      },
-      {
-        id: "lovers",
-        name: "Lovers",
-        user: "Steely Dan",
-        description: "Microscopic stand that attacks from inside the body.",
-        multiplier: 1.2,
-        stats: { Power: 2, Speed: 2.5, Durability: 3, Precision: 2.5, Range: 6, IQ: 4, User: 4 }
-      },
-      {
-        id: "sun",
-        name: "Sun",
-        user: "Arabia Fats",
-        description: "Heat-emitting stand that simulates a miniature sun.",
-        multiplier: 1.1,
-        stats: { Power: 4.5, Speed: 2, Durability: 6, Precision: 2, Range: 6, IQ: 3, User: 3 }
-      },
-      {
-        id: "death_thirteen",
-        name: "Death Thirteen",
-        user: "Mannish Boy",
-        description: "Dream-world attacker that controls combat while victims sleep.",
-        multiplier: 1.3,
-        stats: { Power: 3, Speed: 3, Durability: 4.5, Precision: 2.5, Range: 2, IQ: 4.5, User: 3.5 }
-      },
-      {
-        id: "judgement",
-        name: "Judgement",
-        user: "Cameo",
-        description: "Creates cursed manifestations tied to wishes and trickery.",
-        multiplier: 1.1,
-        stats: { Power: 4.5, Speed: 4.5, Durability: 4.5, Precision: 2.5, Range: 3.5, IQ: 3.5, User: 3 }
-      },
-      {
-        id: "high_priestess",
-        name: "High Priestess",
-        user: "Midler",
-        description: "Mineral-controlling stand that attacks through surfaces.",
-        multiplier: 1.2,
-        stats: { Power: 4, Speed: 4.5, Durability: 6, Precision: 2.5, Range: 6, IQ: 4, User: 3.5 }
-      },
-      {
-        id: "geb",
-        name: "Geb",
-        user: "N'Doul",
-        description: "Remote water blade stand with deadly reach.",
-        multiplier: 1.2,
-        stats: { Power: 4, Speed: 4.5, Durability: 4.5, Precision: 2.5, Range: 6, IQ: 5, User: 4.5 }
-      },
-      {
-        id: "khnum",
-        name: "Khnum",
-        user: "Oingo",
-        description: "Disguises the user's appearance and body shape.",
-        multiplier: 1.0,
-        stats: { Power: 2, Speed: 2, Durability: 2, Precision: 2, Range: 2, IQ: 3.5, User: 3 }
-      },
-      {
-        id: "tohth",
-        name: "Tohth",
-        user: "Boingo",
-        description: "Comic book stand that predicts the future.",
-        multiplier: 1.1,
-        stats: { Power: 2, Speed: 2, Durability: 2, Precision: 2, Range: 2, IQ: 5, User: 3 }
-      },
-      {
-        id: "anubis",
-        name: "Anubis",
-        user: "Standalone Sword",
-        description: "Possessed sword that adapts and improves during battle.",
-        multiplier: 1.2,
-        stats: { Power: 4.5, Speed: 6, Durability: 4.5, Precision: 5, Range: 2, IQ: 4, User: 2.5 }
-      },
-      {
-        id: "bastet",
-        name: "Bastet",
-        user: "Mariah",
-        description: "Magnetism trap stand that punishes contact.",
-        multiplier: 1.1,
-        stats: { Power: 2, Speed: 2, Durability: 3, Precision: 2, Range: 4.5, IQ: 3.5, User: 3 }
-      },
-      {
-        id: "sethan",
-        name: "Sethan",
-        user: "Alessi",
-        description: "Shadow stand that regresses targets into younger forms.",
-        multiplier: 1.2,
-        stats: { Power: 2.5, Speed: 2.5, Durability: 3.5, Precision: 2.5, Range: 2, IQ: 3, User: 3 }
-      },
-      {
-        id: "osiris",
-        name: "Osiris",
-        user: "Daniel J. D'Arby",
-        description: "Steals souls by winning gambles and reading nerves.",
-        multiplier: 1.2,
-        stats: { Power: 2, Speed: 2.5, Durability: 3.5, Precision: 2.5, Range: 2.5, IQ: 5, User: 5.5 }
-      },
-      {
-        id: "horus",
-        name: "Horus",
-        user: "Pet Shop",
-        description: "Ice-based stand with lethal projectile control.",
-        multiplier: 1.1,
-        stats: { Power: 4.5, Speed: 4.5, Durability: 3.5, Precision: 2, Range: 2.5, IQ: 3, User: 3 }
-      },
-      {
-        id: "atum",
-        name: "Atum",
-        user: "Telence T. D'Arby",
-        description: "Soul-reading stand centered around games and pressure.",
-        multiplier: 1.2,
-        stats: { Power: 3, Speed: 3.5, Durability: 4.5, Precision: 2.5, Range: 2.5, IQ: 5.5, User: 5 }
-      },
-      {
-        id: "tenore_sax",
-        name: "Tenore Sax",
-        user: "Kenny G.",
-        description: "Illusion stand that distorts an enclosed space.",
-        multiplier: 1.0,
-        stats: { Power: 2, Speed: 2, Durability: 2.5, Precision: 2, Range: 2.5, IQ: 3.5, User: 2.5 }
-      },
-      {
-        id: "cream",
-        name: "Cream",
-        user: "Vanilla Ice",
-        description: "Void stand that erases anything it hits.",
-        multiplier: 1.3,
-        stats: { Power: 5, Speed: 4.5, Durability: 3.5, Precision: 4, Range: 2.5, IQ: 3.5, User: 4 }
-      }
+      { id: "star_platinum", name: "Star Platinum", user: "Jotaro Kujo", description: "Extremely fast and precise close-range stand with time stop.", multiplier: 1.4, stats: { Power: 6, Speed: 5.5, Durability: 4.5, Precision: 6, Range: 2, IQ: 5, User: 5 } },
+      { id: "magicians_red", name: "Magician's Red", user: "Muhammad Avdol", description: "Fire-based stand with ranged flame attacks.", multiplier: 1.1, stats: { Power: 5, Speed: 4.5, Durability: 4.5, Precision: 4, Range: 3, IQ: 4.5, User: 4 } },
+      { id: "hierophant_green", name: "Hierophant Green", user: "Noriaki Kakyoin", description: "Long-range stand that can unravel and attack from distance.", multiplier: 1.1, stats: { Power: 4, Speed: 4.5, Durability: 4.5, Precision: 4, Range: 6, IQ: 4.5, User: 4.5 } },
+      { id: "silver_chariot", name: "Silver Chariot", user: "Jean Pierre Polnareff", description: "Extremely fast swordsman that can remove armor for speed.", multiplier: 1.1, stats: { Power: 4.5, Speed: 5.5, Durability: 4, Precision: 5.5, Range: 2.5, IQ: 4, User: 4.5 } },
+      { id: "hermit_purple", name: "Hermit Purple", user: "Joseph Joestar", description: "Vine-like stand used for tracking and spirit photography.", multiplier: 1.0, stats: { Power: 2.5, Speed: 3, Durability: 3.5, Precision: 2.5, Range: 3, IQ: 5, User: 5 } },
+      { id: "the_fool", name: "The Fool", user: "Iggy", description: "Sand-based stand that can reshape itself freely.", multiplier: 1.1, stats: { Power: 5, Speed: 3.5, Durability: 3.5, Precision: 2.5, Range: 2.5, IQ: 3.5, User: 3.5 } },
+      { id: "the_world", name: "The World", user: "DIO", description: "Close-range powerhouse that can stop time.", multiplier: 1.4, stats: { Power: 5.5, Speed: 5, Durability: 5.5, Precision: 5, Range: 2, IQ: 5, User: 4.5 } },
+      { id: "tower_of_gray", name: "Tower of Gray", user: "Gray Fly", description: "Tiny insect stand with absurd speed and range.", multiplier: 1.0, stats: { Power: 2, Speed: 6, Durability: 3.5, Precision: 2, Range: 6, IQ: 2.5, User: 3 } },
+      { id: "dark_blue_moon", name: "Dark Blue Moon", user: "Impostor Captain Tennille", description: "Aquatic combat stand built for underwater fighting.", multiplier: 1.1, stats: { Power: 4, Speed: 3.5, Durability: 4.5, Precision: 3.5, Range: 3.5, IQ: 3, User: 3 } },
+      { id: "strength", name: "Strength", user: "Forever", description: "Ship-bound stand with huge physical presence.", multiplier: 1.1, stats: { Power: 4.5, Speed: 2.5, Durability: 6, Precision: 2, Range: 2.5, IQ: 2.5, User: 2 } },
+      { id: "ebony_devil", name: "Ebony Devil", user: "Devo the Cursed", description: "Possessed doll that becomes deadly through hatred and injury.", multiplier: 1.2, stats: { Power: 2.5, Speed: 2.5, Durability: 4.5, Precision: 2.5, Range: 6, IQ: 2.5, User: 2.5 } },
+      { id: "yellow_temperance", name: "Yellow Temperance", user: "Rubber Soul", description: "Body-coating stand that absorbs and protects.", multiplier: 1.2, stats: { Power: 2.5, Speed: 3.5, Durability: 6, Precision: 2, Range: 2, IQ: 2.5, User: 3 } },
+      { id: "hanged_man", name: "Hanged Man", user: "J. Geil", description: "Reflection-traveling assassin with extreme speed.", multiplier: 1.2, stats: { Power: 3.5, Speed: 6, Durability: 4.5, Precision: 2.5, Range: 5.5, IQ: 3, User: 3.5 } },
+      { id: "emperor", name: "Emperor", user: "Hol Horse", description: "Gun stand that curves bullets after firing.", multiplier: 1.0, stats: { Power: 4.5, Speed: 4.5, Durability: 3, Precision: 2.5, Range: 4.5, IQ: 4, User: 4.5 } },
+      { id: "empress", name: "Empress", user: "Nena", description: "Parasitic flesh stand that grows on the target.", multiplier: 1.1, stats: { Power: 3.5, Speed: 2, Durability: 5.5, Precision: 2.5, Range: 6, IQ: 2.5, User: 2.5 } },
+      { id: "wheel_of_fortune", name: "Wheel of Fortune", user: "ZZ", description: "Car stand built around brute force and pressure.", multiplier: 1.0, stats: { Power: 4.5, Speed: 2.5, Durability: 6, Precision: 2, Range: 2.5, IQ: 3, User: 2.5 } },
+      { id: "justice", name: "Justice", user: "Enya", description: "Fog stand that controls injured bodies like puppets.", multiplier: 1.2, stats: { Power: 2.5, Speed: 2, Durability: 3, Precision: 2, Range: 6, IQ: 4.5, User: 4 } },
+      { id: "lovers", name: "Lovers", user: "Steely Dan", description: "Microscopic stand that attacks from inside the body.", multiplier: 1.2, stats: { Power: 2, Speed: 2.5, Durability: 3, Precision: 2.5, Range: 6, IQ: 4, User: 4 } },
+      { id: "sun", name: "Sun", user: "Arabia Fats", description: "Heat-emitting stand that simulates a miniature sun.", multiplier: 1.1, stats: { Power: 4.5, Speed: 2, Durability: 6, Precision: 2, Range: 6, IQ: 3, User: 3 } },
+      { id: "death_thirteen", name: "Death Thirteen", user: "Mannish Boy", description: "Dream-world attacker that controls combat while victims sleep.", multiplier: 1.3, stats: { Power: 3, Speed: 3, Durability: 4.5, Precision: 2.5, Range: 2, IQ: 4.5, User: 3.5 } },
+      { id: "judgement", name: "Judgement", user: "Cameo", description: "Creates cursed manifestations tied to wishes and trickery.", multiplier: 1.1, stats: { Power: 4.5, Speed: 4.5, Durability: 4.5, Precision: 2.5, Range: 3.5, IQ: 3.5, User: 3 } },
+      { id: "high_priestess", name: "High Priestess", user: "Midler", description: "Mineral-controlling stand that attacks through surfaces.", multiplier: 1.2, stats: { Power: 4, Speed: 4.5, Durability: 6, Precision: 2.5, Range: 6, IQ: 4, User: 3.5 } },
+      { id: "geb", name: "Geb", user: "N'Doul", description: "Remote water blade stand with deadly reach.", multiplier: 1.2, stats: { Power: 4, Speed: 4.5, Durability: 4.5, Precision: 2.5, Range: 6, IQ: 5, User: 4.5 } },
+      { id: "khnum", name: "Khnum", user: "Oingo", description: "Disguises the user's appearance and body shape.", multiplier: 1.0, stats: { Power: 2, Speed: 2, Durability: 2, Precision: 2, Range: 2, IQ: 3.5, User: 3 } },
+      { id: "tohth", name: "Tohth", user: "Boingo", description: "Comic book stand that predicts the future.", multiplier: 1.1, stats: { Power: 2, Speed: 2, Durability: 2, Precision: 2, Range: 2, IQ: 5, User: 3 } },
+      { id: "anubis", name: "Anubis", user: "Standalone Sword", description: "Possessed sword that adapts and improves during battle.", multiplier: 1.2, stats: { Power: 4.5, Speed: 6, Durability: 4.5, Precision: 5, Range: 2, IQ: 4, User: 2.5 } },
+      { id: "bastet", name: "Bastet", user: "Mariah", description: "Magnetism trap stand that punishes contact.", multiplier: 1.1, stats: { Power: 2, Speed: 2, Durability: 3, Precision: 2, Range: 4.5, IQ: 3.5, User: 3 } },
+      { id: "sethan", name: "Sethan", user: "Alessi", description: "Shadow stand that regresses targets into younger forms.", multiplier: 1.2, stats: { Power: 2.5, Speed: 2.5, Durability: 3.5, Precision: 2.5, Range: 2, IQ: 3, User: 3 } },
+      { id: "osiris", name: "Osiris", user: "Daniel J. D'Arby", description: "Steals souls by winning gambles and reading nerves.", multiplier: 1.2, stats: { Power: 2, Speed: 2.5, Durability: 3.5, Precision: 2.5, Range: 2.5, IQ: 5, User: 5.5 } },
+      { id: "horus", name: "Horus", user: "Pet Shop", description: "Ice-based stand with lethal projectile control.", multiplier: 1.1, stats: { Power: 4.5, Speed: 4.5, Durability: 3.5, Precision: 2, Range: 2.5, IQ: 3, User: 3 } },
+      { id: "atum", name: "Atum", user: "Telence T. D'Arby", description: "Soul-reading stand centered around games and pressure.", multiplier: 1.2, stats: { Power: 3, Speed: 3.5, Durability: 4.5, Precision: 2.5, Range: 2.5, IQ: 5.5, User: 5 } },
+      { id: "tenore_sax", name: "Tenore Sax", user: "Kenny G.", description: "Illusion stand that distorts an enclosed space.", multiplier: 1.0, stats: { Power: 2, Speed: 2, Durability: 2.5, Precision: 2, Range: 2.5, IQ: 3.5, User: 2.5 } },
+      { id: "cream", name: "Cream", user: "Vanilla Ice", description: "Void stand that erases anything it hits.", multiplier: 1.3, stats: { Power: 5, Speed: 4.5, Durability: 3.5, Precision: 4, Range: 2.5, IQ: 3.5, User: 4 } }
     ];
 
     const userPool = standData.map((s) => ({
       id: `${s.id}_user`,
+      sourceStandId: s.id,
       name: s.user,
       user: s.name,
       description: `User pick tied to ${s.name}.`,
       multiplier: 1.0,
-      stats: {
-        IQ: s.stats.IQ,
-        User: s.stats.User
-      },
-      sourceStandId: s.id
+      stats: { IQ: s.stats.IQ, User: s.stats.User }
     }));
 
     const state = {
       started: false,
-      categories,
-      categoryIndex: 0,
       currentCategory: null,
       currentPart: null,
-      availableParts: ["Part 3"],
       currentChooser: 1,
-      roundFirstChooser: 1,
+      firstChooser: 1,
       picksInRound: 0,
       rerolls: { 1: true, 2: true },
-      players: {
-        1: {},
-        2: {}
-      },
       chosenStandIds: new Set(),
+      players: { 1: {}, 2: {} },
       options: [],
-      locked: false,
-      revealed: false
+      spinning: false
     };
 
     const els = {
-      startBtn: document.getElementById("startBtn"),
-      nextRoundBtn: document.getElementById("nextRoundBtn"),
-      resetBtn: document.getElementById("resetBtn"),
-      currentCategory: document.getElementById("currentCategory"),
-      turnText: document.getElementById("turnText"),
-      partStatus: document.getElementById("partStatus"),
-      spinnerTrack: document.getElementById("spinnerTrack"),
-      rerollBtn: document.getElementById("rerollBtn"),
-      lockInfoBtn: document.getElementById("lockInfoBtn"),
-      optionsArea: document.getElementById("optionsArea"),
-      revealArea: document.getElementById("revealArea"),
-      logArea: document.getElementById("logArea"),
-      p1Slots: document.getElementById("player1Slots"),
-      p2Slots: document.getElementById("player2Slots"),
-      p1Reroll: document.getElementById("p1Reroll"),
-      p2Reroll: document.getElementById("p2Reroll"),
-      roundInfo: document.getElementById("roundInfo")
+      startBtn: document.getElementById('startBtn'),
+      spinBtn: document.getElementById('spinBtn'),
+      rerollBtn: document.getElementById('rerollBtn'),
+      resetBtn: document.getElementById('resetBtn'),
+      currentCategory: document.getElementById('currentCategory'),
+      turnText: document.getElementById('turnText'),
+      partText: document.getElementById('partText'),
+      partTrack: document.getElementById('partTrack'),
+      player1Slots: document.getElementById('player1Slots'),
+      player2Slots: document.getElementById('player2Slots'),
+      p1Reroll: document.getElementById('p1Reroll'),
+      p2Reroll: document.getElementById('p2Reroll'),
+      categoryGrid: document.getElementById('categoryGrid'),
+      choicesGrid: document.getElementById('choicesGrid'),
+      p1Total: document.getElementById('p1Total'),
+      p2Total: document.getElementById('p2Total'),
+      statusText: document.getElementById('statusText'),
+      logArea: document.getElementById('logArea')
     };
 
-    function addLog(message) {
-      const item = document.createElement("div");
-      item.className = "log-item";
-      item.textContent = message;
-      els.logArea.prepend(item);
+    function addLog(text) {
+      const div = document.createElement('div');
+      div.className = 'log-item';
+      div.textContent = text;
+      els.logArea.prepend(div);
     }
 
     function shuffle(arr) {
-      const clone = [...arr];
-      for (let i = clone.length - 1; i > 0; i--) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [clone[i], clone[j]] = [clone[j], clone[i]];
+        [a[i], a[j]] = [a[j], a[i]];
       }
-      return clone;
+      return a;
+    }
+
+    function completedCategory(category) {
+      return !!state.players[1][category] && !!state.players[2][category];
+    }
+
+    function allDone() {
+      return categories.every(completedCategory);
+    }
+
+    function scorePick(pick, category) {
+      const base = pick.stats[category] ?? 0;
+      const multiplier = category === 'IQ' || category === 'User' ? 1.0 : pick.multiplier;
+      return +(base * multiplier).toFixed(2);
+    }
+
+    function updateTotals() {
+      let p1 = 0;
+      let p2 = 0;
+      categories.forEach((category) => {
+        if (state.players[1][category]) p1 += scorePick(state.players[1][category], category);
+        if (state.players[2][category]) p2 += scorePick(state.players[2][category], category);
+      });
+      p1 = +p1.toFixed(2);
+      p2 = +p2.toFixed(2);
+      els.p1Total.textContent = p1;
+      els.p2Total.textContent = p2;
+
+      if (allDone()) {
+        if (p1 > p2) els.statusText.textContent = `Draft complete. Player 1 wins ${p1} to ${p2}.`;
+        else if (p2 > p1) els.statusText.textContent = `Draft complete. Player 2 wins ${p2} to ${p1}.`;
+        else els.statusText.textContent = `Draft complete. Tie game at ${p1}.`;
+      } else {
+        els.statusText.textContent = state.started
+          ? 'Keep filling categories. Final result is only decided when all categories are done.'
+          : 'Waiting to start.';
+      }
     }
 
     function renderSlots() {
-      [1, 2].forEach((playerNum) => {
-        const container = playerNum === 1 ? els.p1Slots : els.p2Slots;
-        container.innerHTML = "";
+      [1,2].forEach((player) => {
+        const holder = player === 1 ? els.player1Slots : els.player2Slots;
+        holder.innerHTML = '';
         categories.forEach((category) => {
-          const picked = state.players[playerNum][category];
-          const slot = document.createElement("div");
-          slot.className = "slot";
-          if (state.currentCategory === category) slot.classList.add("active");
-          if (picked) slot.classList.add("complete");
-
-          const left = document.createElement("div");
-          left.className = "slot-left";
-          left.innerHTML = `
-            <div class="slot-name">${category}</div>
-            <div class="slot-value">${picked ? picked.display : "?"}</div>
+          const pick = state.players[player][category];
+          const div = document.createElement('div');
+          div.className = 'slot';
+          if (state.currentCategory === category) div.classList.add('active');
+          if (pick) div.classList.add('done');
+          div.innerHTML = `
+            <div>
+              <div class="slot-name">${category}</div>
+              <div class="slot-value">${pick ? pick.display : '?'}</div>
+            </div>
+            <div class="badge">${category === 'IQ' || category === 'User' ? 'User' : 'Stand'}</div>
           `;
-
-          const badge = document.createElement("div");
-          badge.className = "badge";
-          badge.textContent = category === "IQ" || category === "User" ? "User Pick" : "Stand Pick";
-
-          slot.append(left, badge);
-          container.appendChild(slot);
+          holder.appendChild(div);
         });
       });
 
-      els.p1Reroll.textContent = `Reroll: ${state.rerolls[1] ? "Ready" : "Used"}`;
-      els.p2Reroll.textContent = `Reroll: ${state.rerolls[2] ? "Ready" : "Used"}`;
+      els.p1Reroll.textContent = state.rerolls[1] ? 'Ready' : 'Used';
+      els.p2Reroll.textContent = state.rerolls[2] ? 'Ready' : 'Used';
+    }
+
+    function renderCategories() {
+      els.categoryGrid.innerHTML = '';
+      categories.forEach((category) => {
+        const btn = document.createElement('button');
+        btn.className = 'category-btn';
+        if (state.currentCategory === category) btn.classList.add('selected');
+        if (completedCategory(category)) btn.classList.add('filled');
+        btn.disabled = !state.started || completedCategory(category) || state.picksInRound > 0 || state.spinning;
+        btn.innerHTML = `<strong>${category}</strong><span>${completedCategory(category) ? 'Completed' : 'Open now'}</span>`;
+        btn.addEventListener('click', () => selectCategory(category));
+        els.categoryGrid.appendChild(btn);
+      });
     }
 
     function poolForCategory(category) {
-      if (category === "IQ" || category === "User") {
-        return userPool.filter((entry) => !state.chosenStandIds.has(entry.sourceStandId));
+      if (category === 'IQ' || category === 'User') {
+        return userPool.filter((u) => !state.chosenStandIds.has(u.sourceStandId));
       }
-      return standData.filter((entry) => !state.chosenStandIds.has(entry.id));
-    }
-
-    function categoryValue(item, category) {
-      return item.stats[category] ?? 0;
+      return standData.filter((s) => !state.chosenStandIds.has(s.id));
     }
 
     function getOptions(category) {
       const pool = poolForCategory(category);
-      const sorted = shuffle(pool).sort((a, b) => categoryValue(b, category) - categoryValue(a, category));
-      const topCut = sorted.slice(0, Math.min(sorted.length, 8));
-      const picked = shuffle(topCut).slice(0, Math.min(topCut.length, 4));
-      return picked.sort((a, b) => categoryValue(b, category) - categoryValue(a, category));
+      const sorted = shuffle(pool).sort((a,b) => (b.stats[category] ?? 0) - (a.stats[category] ?? 0));
+      const top = sorted.slice(0, Math.min(sorted.length, 10));
+      return shuffle(top).slice(0, Math.min(4, top.length));
     }
 
-    function renderOptions() {
-      const { currentCategory, options, currentChooser } = state;
-      els.optionsArea.innerHTML = "";
-      if (!currentCategory || !options.length) {
-        els.optionsArea.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;">Spin the current Part to generate hidden-info choices.</div>';
+    function renderChoices() {
+      els.choicesGrid.innerHTML = '';
+      if (!state.currentCategory) {
+        els.choicesGrid.innerHTML = '<div class="empty" style="grid-column:1 / -1;">Select any open category, then spin the part.</div>';
+        return;
+      }
+      if (!state.options.length) {
+        els.choicesGrid.innerHTML = '<div class="empty" style="grid-column:1 / -1;">No options loaded yet. Spin the part to generate four choices.</div>';
         return;
       }
 
-      options.forEach((option) => {
-        const card = document.createElement("div");
-        card.className = "option-card";
-
-        const roleHint = currentCategory === "IQ" || currentCategory === "User" ? "User candidate" : `${currentCategory} candidate`;
-        const tie = currentCategory === "IQ" || currentCategory === "User"
+      state.options.forEach((option) => {
+        const card = document.createElement('div');
+        card.className = 'choice';
+        const secondary = state.currentCategory === 'IQ' || state.currentCategory === 'User'
           ? `${option.name} • tied to ${option.user}`
           : `${option.name} • ${option.user}`;
-
         card.innerHTML = `
           <div>
-            <h3>${option.name}</h3>
-            <div class="option-sub">${tie}</div>
+            <div class="choice-name">${option.name}</div>
+            <div class="choice-user">${secondary}</div>
           </div>
-          <div class="option-desc">${option.description}</div>
-          <div class="option-tags">
-            <span class="tag">${roleHint}</span>
-            <span class="tag">${state.currentPart}</span>
-          </div>
+          <div class="choice-desc">${option.description}</div>
         `;
 
-        const btn = document.createElement("button");
-        btn.className = "btn-primary pick-btn";
-        btn.textContent = `Player ${currentChooser} Pick`;
-        btn.disabled = state.locked || state.revealed;
-        btn.addEventListener("click", () => makePick(option));
-        card.appendChild(btn);
+        const pickWrap = document.createElement('div');
+        pickWrap.className = 'player-choose';
 
-        els.optionsArea.appendChild(card);
+        const btn = document.createElement('button');
+        btn.className = 'player-pick-btn';
+        btn.textContent = `Player ${state.currentChooser}`;
+        btn.disabled = state.spinning;
+        btn.addEventListener('click', () => makePick(option));
+        pickWrap.appendChild(btn);
+
+        card.appendChild(pickWrap);
+        els.choicesGrid.appendChild(card);
       });
     }
 
-    function renderReveal(data = null) {
-      if (!data) {
-        els.revealArea.innerHTML = '<div class="empty-state">After both players pick for the current category, the hidden values and winner will appear here.</div>';
-        return;
-      }
-
-      const winnerLabel = data.p1.final > data.p2.final ? "Player 1 Wins" : data.p2.final > data.p1.final ? "Player 2 Wins" : "Tie";
-      els.revealArea.innerHTML = `
-        <div class="reveal-card">
-          <div class="tiny">${data.category} reveal</div>
-          <div class="reveal-top">
-            <div class="reveal-name">Player 1 — ${data.p1.display}</div>
-            <div class="score">${data.p1.final}</div>
-          </div>
-          <div class="formula">${data.p1.base} × ${data.p1.multiplier.toFixed(1)} = ${data.p1.final}</div>
-        </div>
-        <div class="reveal-card">
-          <div class="tiny">${data.category} reveal</div>
-          <div class="reveal-top">
-            <div class="reveal-name">Player 2 — ${data.p2.display}</div>
-            <div class="score">${data.p2.final}</div>
-          </div>
-          <div class="formula">${data.p2.base} × ${data.p2.multiplier.toFixed(1)} = ${data.p2.final}</div>
-        </div>
-        <div class="winner-banner show">${winnerLabel}</div>
-      `;
+    function selectCategory(category) {
+      state.currentCategory = category;
+      state.currentPart = null;
+      state.options = [];
+      state.picksInRound = 0;
+      state.firstChooser = state.currentChooser;
+      els.currentCategory.textContent = category;
+      els.partText.textContent = 'Not spun';
+      els.turnText.textContent = `Player ${state.currentChooser}`;
+      els.spinBtn.disabled = false;
+      els.rerollBtn.disabled = true;
+      renderCategories();
+      renderSlots();
+      renderChoices();
+      addLog(`${category} selected.`);
     }
 
-    function scoreForPick(pick, category) {
-      const base = pick.stats[category] ?? 0;
-      const multiplier = category === "IQ" || category === "User" ? 1.0 : pick.multiplier;
-      const final = +(base * multiplier).toFixed(2);
-      return { base, multiplier, final };
+    function spinPart() {
+      if (!state.currentCategory) return;
+      state.spinning = true;
+      els.spinBtn.disabled = true;
+      els.rerollBtn.disabled = true;
+      els.partText.textContent = 'Spinning...';
+
+      const labels = ['PART 3','PART 3','PART 3','PART 3','PART 3','PART 3','PART 3','PART 3'];
+      els.partTrack.innerHTML = labels.map(label => `<div class="part-pill">${label}</div>`).join('');
+      els.partTrack.style.transition = 'none';
+      els.partTrack.style.transform = 'translateX(0px)';
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          els.partTrack.style.transition = 'transform 1.7s cubic-bezier(.17,.84,.18,1)';
+          els.partTrack.style.transform = 'translateX(-340px)';
+        });
+      });
+
+      setTimeout(() => {
+        state.spinning = false;
+        state.currentPart = 'Part 3';
+        state.options = getOptions(state.currentCategory);
+        els.partText.textContent = 'Part 3';
+        els.turnText.textContent = `Player ${state.currentChooser}`;
+        els.rerollBtn.disabled = !state.rerolls[state.currentChooser];
+        renderChoices();
+        addLog(`Part 3 spun for ${state.currentCategory}. Four choices generated.`);
+      }, 1750);
     }
 
     function makePick(option) {
       const category = state.currentCategory;
       const player = state.currentChooser;
       const standId = option.sourceStandId || option.id;
-
       state.players[player][category] = {
         ...option,
-        display: category === "IQ" || category === "User" ? `${option.name} (${option.user})` : `${option.name} (${option.user})`
+        display: category === 'IQ' || category === 'User'
+          ? `${option.name} (${option.user})`
+          : `${option.name} (${option.user})`
       };
       state.chosenStandIds.add(standId);
-      state.options = state.options.filter((item) => (item.sourceStandId || item.id) !== standId);
+      state.options = state.options.filter((o) => (o.sourceStandId || o.id) !== standId);
       state.picksInRound += 1;
-
-      addLog(`Player ${player} locked ${state.players[player][category].display} for ${category}.`);
-      renderSlots();
+      addLog(`Player ${player} picked ${state.players[player][category].display} for ${category}.`);
 
       if (state.picksInRound === 1) {
         state.currentChooser = player === 1 ? 2 : 1;
-        els.turnText.textContent = `Player ${state.currentChooser} picks from the same ${state.currentPart} pool`;
-        renderOptions();
+        els.turnText.textContent = `Player ${state.currentChooser}`;
+        renderSlots();
+        renderChoices();
+        updateTotals();
         return;
       }
 
-      state.revealed = true;
-      state.locked = true;
-      const p1Pick = state.players[1][category];
-      const p2Pick = state.players[2][category];
-      const p1Score = scoreForPick(p1Pick, category);
-      const p2Score = scoreForPick(p2Pick, category);
-      renderReveal({ category, p1: { ...p1Score, display: p1Pick.display }, p2: { ...p2Score, display: p2Pick.display } });
-
-      const roundWinner = p1Score.final > p2Score.final ? "Player 1" : p2Score.final > p1Score.final ? "Player 2" : "No one";
-      addLog(`${category} reveal: ${roundWinner} wins the category.`);
-
-      state.currentChooser = state.roundFirstChooser === 1 ? 2 : 1;
-      state.roundFirstChooser = state.currentChooser;
-
-      if (state.categoryIndex >= categories.length - 1) {
-        finishDraft();
-      } else {
-        els.nextRoundBtn.disabled = false;
-        els.turnText.textContent = `Category complete. Player ${state.currentChooser} will act first next round.`;
-        els.roundInfo.innerHTML = `
-          <strong>${category} is complete.</strong>
-          <div class="footer-note">The next bottom spin will still open with Player ${state.currentChooser}. Because only Part 3 exists right now, the dramatic selector lands on Part 3 each time, but the code is already structured for more Parts later.</div>
-        `;
-      }
-    }
-
-    function spinPart() {
-      state.locked = false;
-      state.revealed = false;
-      state.currentPart = "Part 3";
-      state.options = [];
-      els.nextRoundBtn.disabled = true;
-      els.lockInfoBtn.disabled = false;
-      els.rerollBtn.disabled = !state.rerolls[state.currentChooser];
-      renderReveal(null);
-      els.partStatus.textContent = "Spinning...";
-      els.roundInfo.innerHTML = `
-        <strong>Bottom selector live.</strong>
-        <div class="footer-note">Current category: <strong>${state.currentCategory}</strong>. Player ${state.currentChooser} can accept the part or burn the one reroll for a fresh spin. With only Part 3 loaded, the reroll mainly preserves the structure for later expansion.</div>
-      `;
-
-      const items = Array.from({ length: 12 }, (_, i) => `<div class="spinner-item">${i % 2 === 0 ? "PART 3" : "JOJO"}</div>`).join("");
-      els.spinnerTrack.innerHTML = items;
-      els.spinnerTrack.style.transition = "none";
-      els.spinnerTrack.style.transform = "translateX(0px)";
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          els.spinnerTrack.style.transition = "transform 2.2s cubic-bezier(.15,.92,.08,1)";
-          els.spinnerTrack.style.transform = "translateX(-840px)";
-        });
-      });
-
-      setTimeout(() => {
-        els.partStatus.textContent = "Part 3 locked";
-        state.options = getOptions(state.currentCategory);
-        renderOptions();
-        addLog(`Spinner locked ${state.currentPart} for ${state.currentCategory}.`);
-      }, 2250);
-    }
-
-    function nextRound() {
-      if (!state.started) return;
-      state.categoryIndex += 1;
-      state.currentCategory = categories[state.categoryIndex];
-      state.picksInRound = 0;
+      state.currentChooser = state.firstChooser === 1 ? 2 : 1;
+      state.currentCategory = null;
       state.currentPart = null;
       state.options = [];
-      state.locked = false;
-      state.revealed = false;
-      els.currentCategory.textContent = state.currentCategory.toUpperCase();
-      els.turnText.textContent = `Player ${state.currentChooser} starts ${state.currentCategory}`;
-      els.partStatus.textContent = "No part locked";
-      els.rerollBtn.disabled = true;
-      els.lockInfoBtn.disabled = true;
-      renderSlots();
-      renderOptions();
-      renderReveal(null);
-      spinPart();
-    }
-
-    function startDraft() {
-      state.started = true;
-      state.categoryIndex = 0;
-      state.currentCategory = categories[0];
-      state.currentChooser = 1;
-      state.roundFirstChooser = 1;
       state.picksInRound = 0;
-      state.currentPart = null;
-      state.options = [];
-      state.revealed = false;
-      state.locked = false;
-      els.startBtn.disabled = true;
-      els.currentCategory.textContent = state.currentCategory.toUpperCase();
-      els.turnText.textContent = `Player 1 starts ${state.currentCategory}`;
-      renderSlots();
-      addLog("Draft started. Player 1 opens Power.");
-      spinPart();
-    }
-
-    function finishDraft() {
-      els.turnText.textContent = "Draft complete";
-      els.nextRoundBtn.disabled = true;
+      els.currentCategory.textContent = 'None';
+      els.partText.textContent = 'Not spun';
+      els.turnText.textContent = `Player ${state.currentChooser}`;
+      els.spinBtn.disabled = true;
       els.rerollBtn.disabled = true;
-      els.lockInfoBtn.disabled = true;
-
-      const totals = { 1: 0, 2: 0 };
-      categories.forEach((category) => {
-        const p1 = state.players[1][category];
-        const p2 = state.players[2][category];
-        const s1 = scoreForPick(p1, category).final;
-        const s2 = scoreForPick(p2, category).final;
-        totals[1] += s1;
-        totals[2] += s2;
-      });
-
-      totals[1] = +totals[1].toFixed(2);
-      totals[2] = +totals[2].toFixed(2);
-      const overall = totals[1] > totals[2] ? "Player 1 wins the draft" : totals[2] > totals[1] ? "Player 2 wins the draft" : "Overall tie";
-      els.roundInfo.innerHTML = `
-        <strong>${overall}</strong>
-        <div class="footer-note">Final total — Player 1: <strong>${totals[1]}</strong> | Player 2: <strong>${totals[2]}</strong>. This prototype is intentionally hidden-info during drafting and only reveals math after each lock-in.</div>
-      `;
-      addLog(`Draft complete. ${overall}. Final totals ${totals[1]} to ${totals[2]}.`);
-      els.optionsArea.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;">Draft finished. Reset to run another Part 3 draft.</div>';
+      renderSlots();
+      renderCategories();
+      renderChoices();
+      updateTotals();
+      if (!allDone()) addLog(`Category completed. Player ${state.currentChooser} opens the next category.`);
+      if (allDone()) addLog('All categories completed. Final score locked.');
     }
 
     function reroll() {
       const player = state.currentChooser;
-      if (!state.rerolls[player]) return;
+      if (!state.rerolls[player] || !state.currentCategory) return;
       state.rerolls[player] = false;
       renderSlots();
-      addLog(`Player ${player} burned their reroll before locking ${state.currentPart || "the part"}.`);
+      addLog(`Player ${player} used the reroll.`);
       spinPart();
     }
 
-    function hardReset() {
+    function resetAll() {
       state.started = false;
-      state.categoryIndex = 0;
       state.currentCategory = null;
       state.currentPart = null;
       state.currentChooser = 1;
-      state.roundFirstChooser = 1;
+      state.firstChooser = 1;
       state.picksInRound = 0;
       state.rerolls = { 1: true, 2: true };
-      state.players = { 1: {}, 2: {} };
       state.chosenStandIds = new Set();
+      state.players = { 1: {}, 2: {} };
       state.options = [];
-      state.locked = false;
-      state.revealed = false;
-
+      state.spinning = false;
+      els.currentCategory.textContent = 'None';
+      els.turnText.textContent = 'Press Start';
+      els.partText.textContent = 'Not spun';
+      els.partTrack.innerHTML = '';
       els.startBtn.disabled = false;
-      els.nextRoundBtn.disabled = true;
+      els.spinBtn.disabled = true;
       els.rerollBtn.disabled = true;
-      els.lockInfoBtn.disabled = true;
-      els.currentCategory.textContent = "WAITING";
-      els.turnText.textContent = "Press Start Draft";
-      els.partStatus.textContent = "No part locked";
-      els.spinnerTrack.innerHTML = "";
-      els.roundInfo.innerHTML = '<strong>Round not started.</strong><div class="footer-note">For now this prototype only contains <strong>Part 3</strong>. The spinner still behaves like a dramatic bottom selector so Parts 4 and 5 can be dropped in later without rewriting the draft flow.</div>';
       els.logArea.innerHTML = '<div class="log-item">Draft log ready.</div>';
-
       renderSlots();
-      renderOptions();
-      renderReveal(null);
+      renderCategories();
+      renderChoices();
+      updateTotals();
     }
 
-    els.startBtn.addEventListener("click", startDraft);
-    els.nextRoundBtn.addEventListener("click", nextRound);
-    els.resetBtn.addEventListener("click", hardReset);
-    els.rerollBtn.addEventListener("click", reroll);
-    els.lockInfoBtn.addEventListener("click", () => addLog(`Part already locked for ${state.currentCategory}. Choices are live.`));
+    els.startBtn.addEventListener('click', () => {
+      state.started = true;
+      els.startBtn.disabled = true;
+      els.turnText.textContent = 'Player 1';
+      els.statusText.textContent = 'Choose any category to begin.';
+      addLog('Draft started. Choose any category.');
+      renderCategories();
+    });
 
-    hardReset();
+    els.spinBtn.addEventListener('click', spinPart);
+    els.rerollBtn.addEventListener('click', reroll);
+    els.resetBtn.addEventListener('click', resetAll);
+
+    resetAll();
   </script>
 </body>
 </html>
+
